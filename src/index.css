@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggled by `.dark` on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --- PP Neue Montreal (self-hosted) --- */
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/PPNeueMontreal-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/PPNeueMontreal-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/PPNeueMontreal-Extrabold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: hsl(0 0% 98%);
+  --fg: hsl(0 0% 10%);
+  --muted: hsl(0 0% 45%);
+  --line: hsl(0 0% 88%);
+  --surface: hsl(0 0% 100%);
+  --accent: #c3e41d;
+}
+
+.dark {
+  --bg: hsl(0 0% 0%);
+  --fg: hsl(0 0% 100%);
+  --muted: hsl(0 0% 55%);
+  --line: hsl(0 0% 14%);
+  --surface: hsl(0 0% 4%);
+  --accent: #c3e41d;
+}
+
+/* Expose theme tokens as Tailwind color utilities (bg-bg, text-fg, border-line, ...) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+
+  /* PP Neue Montreal as the single typeface across the site.
+     Mono token kept for the technical micro-labels, with tabular fallback. */
+  --font-sans: "PP Neue Montreal", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "PP Neue Montreal", system-ui, sans-serif;
+  --font-mono: "PP Neue Montreal", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Scroll-margin so anchored sections clear the fixed header */
+[id] {
+  scroll-margin-top: 96px;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
